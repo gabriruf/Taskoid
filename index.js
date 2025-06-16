@@ -1,3 +1,5 @@
+const { parse } = require('path');
+
 function main() {
     /* 
     
@@ -26,7 +28,6 @@ function main() {
     // Reads the file contents and parses it into objects.
     //const taskFile = fs.readFileSync('tasksList.json', 'utf-8')
     //let parsedJsonObj = JSON.parse(taskFile)
-
     let parsedJsonObj = require("./tasksList.json");
 
     // Defines id at start and sees which is the latest available id.
@@ -72,11 +73,49 @@ function main() {
             break;
 
         case "mark":
-            //let statusInput = process.argv[3]
             let idInput = parseInt(process.argv[3])
-            let id2 = parsedJsonObj.tasks[idInput - 1].id
+            let statusInput = process.argv[4]
 
+            const done = "[x]"
+            const todo = "[ ]"
+            const inProgress = "[-]"
 
+            let finder = parsedJsonObj.tasks.map(function(task){
+                if (task.id == idInput) {
+                    if (statusInput == "done") {
+                        return {
+                            id: task.id,
+                            progress: done,
+                            name: task.name
+                        }
+                    } else if (statusInput == "todo") {
+                        return {
+                            id: task.id,
+                            progress: todo,
+                            name: task.name
+                        }
+                    } else if (statusInput == "inProgress") {
+                        return {
+                            id: task.id,
+                            progress: inProgress,
+                            name: task.name
+                        }
+                    } else {
+                        console.log("ERROR: No status type were specified for change")
+                    }
+                } else {
+                    return task 
+                }
+            }) 
+
+            jsonFinder = JSON.stringify(finder,null,4)
+
+            finalFinder = `{\n "tasks": ${jsonFinder}\n}` 
+
+            fs.writeFile('tasksList.json', finalFinder, function (err) {
+                if (err) throw err
+                console.log(`Task marked successfully: (ID: ${idInput})`)
+            })
 
             break;
 
