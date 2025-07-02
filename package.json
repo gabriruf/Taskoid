@@ -1,0 +1,24 @@
+{
+  "name": "taskoid",
+  "version": "1.0.0",
+  "description": "Conqueror of Tasks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabriruf/Taskoid.git"
+  },
+  "keywords": [
+    "task-tracker",
+    "todo-list-app",
+    "todo-list"
+  ],
+  "author": "Gabriel Souza",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/gabriruf/Taskoid/issues"
+  },
+  "homepage": "https://github.com/gabriruf/Taskoid#readme"
+}
