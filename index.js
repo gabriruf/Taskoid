@@ -1,17 +1,4 @@
 function main() {
-    /* 
-    
-        // Exemplo de tarefa:
-        
-        "1": indice da tarefa
-        "[ ]": status da tarefa
-            "[x]": statusDone
-            "[ ]": statusToDo
-            "[-]": in-progress
-        "Comprar comida": nome da tarefa
-    
-        // 1 - [ ]: Comprar comida
-    */
     console.log("> Taskoid, Conqueror of Tasks ")
 
 
@@ -180,7 +167,8 @@ function main() {
 
             fs.writeFile('tasksList.json', finalOutput, err => {
                 if (err) throw err
-                console.log(`Task deleted successfully: (ID: ${process.argv[3]})`)
+                //console.log(`Task deleted successfully: (ID: ${process.argv[3]})`)
+                console.log(`Task deleted successfully: (ID: ${process.argv[2]})`)
             })
 
             break;
@@ -195,7 +183,6 @@ function main() {
 
             console.clear()          
 
-            // Sweet spot!
             const sortOptions = {
                 done: statusDone,
                 todo: statusToDo,
