@@ -1,3 +1,5 @@
+const { parse } = require('path')
+
 function main() {
     console.log("> Taskoid, Conqueror of Tasks ")
 
@@ -34,10 +36,10 @@ function main() {
         timeStyle: "medium"
     }).format(new Date())
 
-
     let mode = process.argv[2]
     switch(mode) {
         case "add":
+        case "ADD":
             const taskInput = process.argv[3]
 
             let tasks = { "id": taskId, "description": taskInput, "progress": statusToDo, "createdAt": taskDate, "updatedAt": taskDate } 
@@ -56,12 +58,8 @@ function main() {
             }
             break;
 
-
-
-            
-
-            
         case "update":
+        case "UPDATE":
             const updateIdInput = parseInt(process.argv[3])
             const updateInput = process.argv[4]
 
@@ -79,9 +77,9 @@ function main() {
                 }
             })
 
-            let strTasks = JSON.stringify(updateFinder,null,4)
+            strTasks = JSON.stringify(updateFinder,null,4)
 
-            let finalOutput = `{\n "tasks": ${strTasks}\n}` 
+            finalOutput = `{\n "tasks": ${strTasks}\n}` 
 
             fs.writeFile('tasksList.json', finalOutput, err => {
                 if (err) throw err
@@ -89,18 +87,15 @@ function main() {
             })
             break;
 
-
-
-
-
-
         case "mark":
+        case "MARK":
             const markIdInput = parseInt(process.argv[3])
             const statusInput = process.argv[4]
 
             let markFinder = parsedTasks.tasks.map(task => {
                 if (task.id == markIdInput) {
                     if (statusInput == "done") {
+                        console.log(`Task marked successfully: (ID: ${markIdInput})`)
                         return {
                             id: task.id,
                             description: task.description,
@@ -109,6 +104,7 @@ function main() {
                             updatedAt: taskDate
                         }
                     } else if (statusInput == "todo") {
+                        console.log(`Task marked successfully: (ID: ${markIdInput})`)
                         return {
                             id: task.id,
                             description: task.description,
@@ -117,6 +113,7 @@ function main() {
                             updatedAt: taskDate
                         }
                     } else if (statusInput == "inProgress") {
+                        console.log(`Task marked successfully: (ID: ${markIdInput})`)
                         return {
                             id: task.id,
                             description: task.description,
@@ -126,6 +123,13 @@ function main() {
                         }
                     } else {
                         console.log("ERROR: No status type were specified for change")
+                        return {
+                            id: task.id,
+                            description: task.description,
+                            progress: task.progress,
+                            createdAt: task.createdAt,
+                            updatedAt: task.updatedAt
+                        }
                     }
                 } else {
                     return task 
@@ -138,20 +142,17 @@ function main() {
 
             fs.writeFile('tasksList.json', finalOutput, err => {
                 if (err) throw err
-                console.log(`Task marked successfully: (ID: ${markIdInput})`)
             })
 
             break;
 
-
-
-
-
-
         case "del":
-            const delIdInput = parseInt(process.argv[3])
+        case "DEL":
+        case "delete":
+        case "DELETE":
+            let delIdInput = parseInt(process.argv[3])
             
-            delIdInput -= 1
+            delIdInput -= 1 // the task number in user input doesn't match its array index, that's why it's getting decreased by 1.
 
             let deletedTasks = parsedTasks.tasks.toSpliced(delIdInput,1)
 
@@ -168,7 +169,7 @@ function main() {
             fs.writeFile('tasksList.json', finalOutput, err => {
                 if (err) throw err
                 //console.log(`Task deleted successfully: (ID: ${process.argv[3]})`)
-                console.log(`Task deleted successfully: (ID: ${process.argv[2]})`)
+                console.log(`Task deleted successfully: (ID: ${process.argv[3]})`)
             })
 
             break;
@@ -179,9 +180,18 @@ function main() {
 
 
         case "list":
+        case "LIST":
+        case "ls":
+        case "LS":
             const sortList = process.argv[3]
 
             console.clear()          
+
+            console.log("> Taskoid, Conqueror of Tasks ")
+
+            if (parsedTasks.tasks.length == 0) {
+                console.log('There are no tasks at the moment. Add one by typing: \nnode index.js add "your task name"');
+            }
 
             const sortOptions = {
                 done: statusDone,
@@ -205,9 +215,10 @@ function main() {
 
 
         case "help":
+        case "HELP":
             console.clear()
             console.log("Taskoid Commands:")
-            console.log(`add: adds a task.\n\nupdate: updates a task's description.\n\nmark: marks a task as "done", "todo" or "inProgress".\n\ndel: deletes a task.\n\nlist: lists all tasks or lists tasks by sorting.\n\nhelp: shows all Taskoid commands and what they do.\n`)
+            console.log(`-> add: adds a task.\n-> update: updates a task's description.\n-> mark: marks a task as "done", "todo" or "inProgress".\n-> del || delete: deletes a task.\n-> ls || list: lists all tasks or lists tasks by sorting.\n-> help: shows all Taskoid commands and what they do.\n`)
             break;
 
 
@@ -218,7 +229,7 @@ function main() {
         default:
             console.log("ERROR: This command is not available, try another!");
             break;
-    }    
+    }
 }
 
 main()
