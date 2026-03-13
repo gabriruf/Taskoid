@@ -11,17 +11,17 @@ O projeto tem algumas restrições e requisitos, como o uso de um arquivo JSON p
 1. Para realizar a instalação, você pode usar as ferramentas Git, ou baixar como zip pelo GitHub:
     1. 'git clone':
 	```
-	git clone https://github.com/gabriruf/Taskoid.**git**
+	git clone https://github.com/gabriruf/Taskoid.git
 	```
 
     2. ou baixar como zip:
- <img src="zipdownload.gif" alt="Baixar como zip" width=60% height=60%>
+ <img src="./gifs-readme/zipdownload.gif" alt="Baixar como zip" width=60% height=60%>
 
 2.  Após a instalação, dentro da pasta raiz do projeto, abra um emulador de terminal dentro da pasta (ex: PowerShell, cmd, Windows Terminal, etc)
-<img src="abrirterminal.gif" alt="Abrir terminal na pasta do projeto" width=60% height=60%>
+<img src="./gifs-readme/abrirterminal.gif" alt="Abrir terminal na pasta do projeto" width=60% height=60%>
 
 4. Pronto!!! - Agora é só utilizar o programa:
-<img src="taskoid.gif" alt="Taskoid em execução no terminal">
+<img src="./gifs-readme/taskoid.gif" alt="Taskoid em execução no terminal">
 
 <h2 id="sintaxe-e-comandos">Sintaxe e Comandos</h2>
 
